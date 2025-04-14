@@ -1,0 +1,17 @@
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./backend:/app
+    restart: always
+
+  sender:
+    build: ./sender
+    depends_on:
+      - backend
+    volumes:
+      - ./sender:/app
+    command: python send_packages.py
+
